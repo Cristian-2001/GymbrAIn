@@ -8,7 +8,9 @@ def find_min_vel(poses, keypoint, num_min=2, th=0.5):
 
     Args:
         poses (list): A list of pose data, where each pose is a tensor of shape (1, 17, 2).
+        keypoint (int): The index of the keypoint to use for velocity calculation.
         num_min (int): The number of frames with the minimum velocity to find. Default is 2.
+        th (float): The threshold for the velocity calculation. Default is 0.5.
 
     Returns:
         min_frames (list): A list of indices of the frames with the minimum velocity.
@@ -84,12 +86,12 @@ def compute_angle(pose, exercise_index):
     camera_matrix, dist_coeffs = camera_calibration(exercise_index)
 
     point1_3d = pixel_to_3d(pose[6], camera_matrix, dist_coeffs)
-    point2_3d = pixel_to_3d(pose[8], camera_matrix, dist_coeffs)
+    vertex_3d = pixel_to_3d(pose[8], camera_matrix, dist_coeffs)
     point3_3d = pixel_to_3d(pose[10], camera_matrix, dist_coeffs)
 
     # Compute the vectors between the points
-    vector1 = point1_3d - point2_3d
-    vector2 = point2_3d - point3_3d
+    vector1 = point1_3d - vertex_3d
+    vector2 = point3_3d - vertex_3d
 
     # Compute the angle between the vectors
     angle_rad = np.arccos(np.dot(vector1, vector2) / (np.linalg.norm(vector1) * np.linalg.norm(vector2)))
@@ -101,7 +103,7 @@ def compute_angle(pose, exercise_index):
 def compare_angles(angle_user, angle_luca):
     print("COMPARE_ANGLES")
     angle_diff = angle_user - angle_luca
-    if abs(angle_diff) < 10:
+    if abs(angle_diff) < 20:
         return True, angle_diff
     else:
         return False, angle_diff

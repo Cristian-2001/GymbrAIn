@@ -11,6 +11,7 @@ def estimate_poses(video_path, num_frames=30):
     """Estimate poses in a video and return the results. The number of frames to process can be specified"""
     # Perform pose estimation
     poses = []
+    poses_norm = []
     video = cv2.VideoCapture(video_path)
     frames = int(video.get(cv2.CAP_PROP_FRAME_COUNT))
     step = max(1, frames // num_frames)  # Step for frame sampling (process at most num_frames frames)
@@ -34,10 +35,11 @@ def estimate_poses(video_path, num_frames=30):
         if not results[0]:
             poses.append(torch.zeros((1, 17, 2), dtype=torch.float32))
         else:
-            poses.append(results[0][0].keypoints.xyn)
+            poses_norm.append(results[0][0].keypoints.xyn)  # Original line: it returns the xyn coordinates
+            poses.append(results[0][0].keypoints.xy)  # Modified to return only the xy coordinates
 
     video.release()
-    return poses
+    return poses, poses_norm
 
 
 def classify_exercise(poses):
