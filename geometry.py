@@ -94,8 +94,8 @@ def compute_angle(pose, exercise_index):
     vector2 = point3_3d - vertex_3d
 
     # Compute the angle between the vectors
-    angle_rad = np.arccos(np.dot(vector1, vector2) / (np.linalg.norm(vector1) * np.linalg.norm(vector2)))
-    angle_deg = np.degrees(angle_rad)
+    angle_rad = np.arccos(np.dot(vector2, vector1) / (np.linalg.norm(vector2) * np.linalg.norm(vector1)))
+    angle_deg = 180 - np.degrees(angle_rad)
 
     return angle_deg
 
