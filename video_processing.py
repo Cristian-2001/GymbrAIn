@@ -17,18 +17,26 @@ def apply_sharpening(input_path):
     fourcc = cv2.VideoWriter_fourcc(*'mp4v')
     out = cv2.VideoWriter(output_path, fourcc, fps, (frame_width, frame_height))
 
+    # Define the gaussian blur kernel
+    gaussian_blur_kernel = np.array([[1, 2, 1],
+                                     [2, 4, 2],
+                                     [1, 2, 1]]) / 16
+
     # Define the sharpening kernel
-    kernel = np.array([[-1, -1, -1],
-                       [-1, 9, -1],
-                       [-1, -1, -1]])
+    sharpening_kernel = np.array([[-1, -1, -1],
+                                  [-1, 9, -1],
+                                  [-1, -1, -1]])
 
     while True:
         ret, frame = cap.read()
         if not ret:
             break
 
+        # Apply the gaussian blur kernel
+        blurred = cv2.filter2D(frame, -1, gaussian_blur_kernel)
+
         # Apply the sharpening kernel
-        sharpened = cv2.filter2D(frame, -1, kernel)
+        sharpened = cv2.filter2D(blurred, -1, sharpening_kernel)
 
         out.write(sharpened)
 
