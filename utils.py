@@ -93,18 +93,6 @@ def check_correctness(poses_tuple, ex_index, frames):
         majinbool.append(result)
         differences.append(angle_diff)
 
-    # for i in range(2):
-    #     angle_user = geometry.compute_angle(poses_user[i][0], ex_index)
-    #     if switch:
-    #         angle_luca = geometry.compute_angle(poses_luca[1 - i], ex_index)
-    #     else:
-    #         angle_luca = geometry.compute_angle(poses_luca[i], ex_index)
-    #
-    #     print(angle_user, angle_luca)
-    #     result, angle_diff = geometry.compare_angles(angle_user, angle_luca)
-    #     majinbool.append(result)
-    #     differences.append(angle_diff)
-
     if not majinbool:
         print("Error in the comparison of the angles")
         return
@@ -116,13 +104,6 @@ def check_correctness(poses_tuple, ex_index, frames):
                 print("The angle difference is: ", differences[i])
     else:
         print("Correctly executed exercise, all poses are correct")
-
-    # if switch:
-    #     frame_0 = Image.open("videoLuca/frames/" + ex_name + "_1.jpg")
-    #     frame_1 = Image.open("videoLuca/frames/" + ex_name + "_0.jpg")
-    # else:
-    #     frame_0 = Image.open("videoLuca/frames/" + ex_name + "_0.jpg")
-    #     frame_1 = Image.open("videoLuca/frames/" + ex_name + "_1.jpg")
 
     frame_0 = Image.open(poses_tuple[0][2])
     frame_1 = Image.open(poses_tuple[1][2])
