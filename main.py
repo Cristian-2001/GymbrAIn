@@ -14,15 +14,14 @@ if __name__ == "__main__":
     keypoint_to_use_vel = [8, 10, 10, 10]
 
     # Thresholds for velocity calculation for each exercise
-    thresholds = [0.2, 0.2, 0.5, 0.5]
+    thresholds = [0.2, 0.2, 0.2, 0.2]
 
     # List to store poses of the user
     stationary_user_poses = []
     stationary_user_poses_norm = []
 
     # Path to the video file of the user
-    video_path = f"videoTest/pancaaldo.mp4"
-    # video_path = f"videoTest/lat_1.mp4"
+    video_path = f"videoTest/panca_2.mp4"
 
     # Preprocess the video
     video_path = video_processing.save_5secs(video_path)
@@ -32,7 +31,7 @@ if __name__ == "__main__":
     user_poses, user_poses_norm = deep_learning.estimate_poses(video_path)
 
     # Classify the exercise based on the estimated poses
-    ex_index = deep_learning.classify_exercise(user_poses)
+    ex_index, confidence = deep_learning.classify_exercise(user_poses)
 
     # Print the index of the classified exercise
     print("Exercise's index: " + str(ex_index))
@@ -44,22 +43,6 @@ if __name__ == "__main__":
     # Load pose data from a JSON file
     data_luca = utils.load_json("poses5.json")
     data_luca, data_luca_norm = data_luca[0], data_luca[1]
-
-    # Retrieve the video paths for the example exercise
-    luca_video_path, luca_video_path_720, exercise_name = video_processing.retrieve_video(user_poses_norm,
-                                                                                          data_luca_norm)
-
-    # Check if classification and retrieval give the same exercise
-    if ex_index != luca_class_list.index(exercise_name):
-        print("The classified exercise is different from the example exercise")
-        exit()
-
-    # Print the name of the executed exercise and the example video path
-    print("Performed exercise: " + exercise)
-    print("Example video: " + luca_video_path)
-
-    # Play the example video
-    video_processing.play_video(luca_video_path_720)
 
     # Find frames with minimum velocity based on the estimated poses
     min_vel_frames = geometry.find_min_vel(user_poses_norm, keypoint=keypoint_to_use_vel[ex_index],
@@ -76,6 +59,34 @@ if __name__ == "__main__":
     for index in min_vel_frames:
         stationary_user_poses.append(user_poses[index][0])
         stationary_user_poses_norm.append(user_poses_norm[index])
+
+    # Retrieve the video paths for the example exercise
+    exercise_name = video_processing.retrieve_video(stationary_user_poses_norm, data_luca_norm)
+
+    # Check if classification and retrieval give the same exercise
+    if ex_index != luca_class_list.index(exercise_name):
+        print("The classified exercise is different from the example exercise")
+        print("Classified exercise: " + exercise, "conf: " + str(confidence))
+        print("Retrieved exercise: " + exercise_name)
+
+        if confidence < 0.85:
+            # If the confidence is low, take the retrieved exercise
+            ex_index = luca_class_list.index(exercise_name)
+            exercise = class_list[luca_class_list.index(exercise_name)]
+        else:
+            # If the confidence is high, take the classified exercise
+            exercise_name = luca_class_list[ex_index]
+
+    # Get the path of the example video
+    luca_video_path = f"videoLuca/{exercise_name}_1.mp4"
+    luca_video_path_720 = f"videoLuca/video_720/{exercise_name}_720.mp4"
+
+    # Print the name of the executed exercise and the example video path
+    print("Performed exercise: " + exercise)
+    print("Example video: " + luca_video_path)
+
+    # Play the example video
+    video_processing.play_video(luca_video_path_720)
 
     # Get the poses of the example exercise
     poses_luca = data_luca[exercise_name]

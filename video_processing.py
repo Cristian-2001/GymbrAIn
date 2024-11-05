@@ -80,10 +80,7 @@ def retrieve_video(poses_user, data_poses_luca):
         print("Exercise not found")
         return None
 
-    video_path = f"videoLuca/{exercise_name}_1.mp4"
-    video_path_720 = f"videoLuca/video_720/{exercise_name}_720.mp4"
-
-    return video_path, video_path_720, exercise_name
+    return exercise_name
 
 
 def play_video(video_path):

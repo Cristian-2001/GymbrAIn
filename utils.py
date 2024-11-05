@@ -9,6 +9,12 @@ import geometry
 
 
 def find_frames(video_path, min_frame):
+    """
+    Find the frames with the minimum velocity based on pose data
+    :param video_path: path of the video
+    :param min_frame: indices of the frames with the minimum velocity
+    :return: list of frames
+    """
     print("FIND_FRAMES")
     frame_list = []
     video = cv2.VideoCapture(video_path)
@@ -67,6 +73,7 @@ def find_same_poses(poses_user, poses_user_norm, poses_luca, poses_luca_norm, ex
         switch = True
     else:
         poses_tuples = [(poses_user[0], poses_luca[0], frame_name_0), (poses_user[1], poses_luca[1], frame_name_1)]
+    print("Switch: ", switch)
     return poses_tuples, poses_luca_norm, switch
 
 
@@ -104,6 +111,7 @@ def check_correctness(poses_tuple, ex_index, frames):
                 print("The angle difference is: ", differences[i])
     else:
         print("Correctly executed exercise, all poses are correct")
+        print("The angles differences are: ", differences)
 
     frame_0 = Image.open(poses_tuple[0][2])
     frame_1 = Image.open(poses_tuple[1][2])

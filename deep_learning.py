@@ -52,4 +52,5 @@ def classify_exercise(poses):
     prediction = model_att.predict(poses)
 
     predicted_class = np.argmax(prediction, axis=1)
-    return predicted_class
+    confidence = np.max(prediction)
+    return predicted_class, confidence
