@@ -102,7 +102,7 @@ def check_correctness(poses_tuple, ex_index, frames):
 
     if not majinbool:
         print("Error in the comparison of the angles")
-        return
+        exit(5)
 
     if False in majinbool:
         for i, val in enumerate(majinbool):

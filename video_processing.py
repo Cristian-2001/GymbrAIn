@@ -81,7 +81,7 @@ def retrieve_video(poses_user, data_poses_luca):
 
     if exercise_name == "":
         print("Exercise not found")
-        return None
+        exit(6)
 
     return exercise_name
 

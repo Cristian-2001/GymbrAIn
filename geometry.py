@@ -50,6 +50,7 @@ def find_min_vel(poses, keypoint, num_min=2, th=0.5):
 
     if counter == len(l_dist):
         print("Not enough frames with different velocities")
+        exit(3)
     return min_frames
 
 
@@ -63,7 +64,7 @@ def camera_calibration(index):
         calibration = np.load('camera_coeffs/coefficients_biceps_triceps_pushup.npz')
     else:
         print("ERROR: Invalid index")
-        return None
+        exit(4)
 
     camera_matrix = calibration['mtx']
     dist_coeffs = calibration['dist']
