@@ -55,7 +55,7 @@ def save_5secs(video_path):
     duration = video.duration
     if duration < 5:
         print("Video is too short")
-        exit(1)
+        exit(2)
     start_time = (duration / 2) - 2.5
     end_time = (duration / 2) + 2.5
 
