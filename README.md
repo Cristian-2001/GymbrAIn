@@ -157,3 +157,33 @@ This project was developed by students at the **University of Modena and Reggio 
 See Section 6.2 of the [report](Report_GymbrAIn.pdf) for future improvements.
 
 ---
+
+## 👥 Contributors
+
+<table>
+<tr>
+    <td align="center">
+        <a href="https://github.com/Cristian-2001">
+            <img src="https://github.com/Cristian-2001.png" width="100px;" alt="Contributor 1"/>
+            <br />
+            <sub><b>Casali Cristian</b></sub>
+        </a>
+    </td>
+    <td align="center">
+        <a href="https://github.com/aldoflotta">
+            <img src="https://github.com/aldoflotta.png" width="100px;" alt="Contributor 2"/>
+            <br />
+            <sub><b>Flotta Aldo</b></sub>
+        </a>
+    </td>
+    <td align="center">
+        <a href="https://github.com/Lambo52">
+            <img src="https://github.com/Lambo52.png" width="100px;" alt="Contributor 3"/>
+            <br />
+            <sub><b>Lamberti Francesco</b></sub>
+        </a>
+    </td>
+</tr>
+</table>
+
+---
