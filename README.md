@@ -172,7 +172,7 @@ See Section 6.2 of the [report](Report_GymbrAIn.pdf) for future improvements.
     <td align="center">
         <a href="https://github.com/aldoflotta">
             <img src="https://github.com/aldoflotta.png" width="100px;" alt="Contributor 2"/>
-            <br />
+            <br/>
             <sub><b>Flotta Aldo</b></sub>
         </a>
     </td>
